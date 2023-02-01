@@ -1,0 +1,1 @@
+system.debug('b14 demek goruntuleme orani dusuk demek');
