@@ -9,5 +9,10 @@ DML_Demo.dmlDemoMultipleInsert_Right2();
 DML_Demo.dmlDemoMultipleUpdate_Right1();
 DML_Demo.dmlDemoMultipleUpdate_Right2();
 
+List<Account> delAccount =[select id from account where createddate = today limit 25  ];
+delete delAccount;
+delete [select id from account where createddate = today limit 5 ];
+
+
 
 
