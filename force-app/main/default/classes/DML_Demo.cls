@@ -131,7 +131,4 @@ public static void dmlDemoMultipleUpdate_Right2() {
     
 }
 
-
-
-
 }
