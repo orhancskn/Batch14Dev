@@ -14,3 +14,8 @@ for (String eachStr: listStr){
 
 System.debug(concateStr);
 System.debug(' :smile: ');
+
+Contact b = new Contact();
+b.LastName = 'John';
+insert b;
+
