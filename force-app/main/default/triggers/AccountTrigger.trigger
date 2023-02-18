@@ -1,32 +1,52 @@
 trigger AccountTrigger on Account (before insert, before update, after insert, after update) {
-    system.debug('----- trigger start -----');
-    Map<id, account> trgNewMap = trigger.newMap;
-    Map<id, account> trgOldMap = trigger.oldMap;
+   system.debug('_____TRIER START_______');
 
-    if (Trigger.isBefore && Trigger.isInsert) {
-        system.debug('====BEFORE INSERT====');
-        system.debug('trigger.newMap -> ' + trgNewMap);//ID is null. So newMap is NULL.
-        system.debug('trigger.oldMap -> ' + trgOldMap);//Old is null. So oldMap is also NULL, obviously.
-    }
-    if (Trigger.isAfter && Trigger.isInsert) {
-        system.debug('====AFTER INSERT====');
-        system.debug('trigger.newMap -> ' + trgNewMap);//yes
-        system.debug('trigger.oldMap -> ' + trgOldMap);//Old is null. So oldMap is also NULL, obviously.
+   if (trigger.isBefore) {
+   AccountTriggerHandler.UpdateDescription(trigger.new, Trigger.old, trigger.newMap, Trigger.oldMap);
     }
 
-    if (Trigger.isBefore && Trigger.isUpdate) {
-        system.debug('====BEFORE UPDATE====');
-        system.debug('trigger.newMap -> ' + trgNewMap);//yes
-        system.debug('trigger.oldMap -> ' + trgOldMap);//yes
-    }
-    if (Trigger.isAfter && Trigger.isUPDATE) {
-        system.debug('====AFTER UPDATE====');
-        system.debug('trigger.newMap -> ' + trgNewMap);//yes
-        system.debug('trigger.oldMap -> ' + trgOldMap);//yes
+    // if (Trigger.isAfter && Trigger.isUpdate) {
+    //     set<Id> setIds = trgNewMap.keySet();
+
+    //     for (Id eachID  : setIds) {
+    //         //get NEW Account from eachID (key)
+    //         //.get method of map to get account record
+    //         Account newAcc = trgNewMap.get(eachId); 
+    //         Account oldAcc = trgOldMap.get(eachId); 
+
+    //         string newName = newAcc.Name;
+    //         string oldName = oldAcc.Name;
+
+    //         system.debug('new account name is ' + newName +', old account name WAS ' + oldName);
+    //         //system.debug('new account name is v2 ' + trigger.newMap.get(eachId).Name);
+    //     }
+    //     }
     }
 
+    // if (Trigger.isBefore && Trigger.isInsert) {
+    //     system.debug('====BEFORE INSERT====');
+    //     system.debug('trigger.newMap -> ' + trgNewMap);//ID is null. So newMap is NULL.
+    //     system.debug('trigger.oldMap -> ' + trgOldMap);//Old is null. So oldMap is also NULL, obviously.
+    // }
+    // if (Trigger.isAfter && Trigger.isInsert) {
+    //     system.debug('====AFTER INSERT====');
+    //     system.debug('trigger.newMap -> ' + trgNewMap);//yes
+    //     system.debug('trigger.oldMap -> ' + trgOldMap);//Old is null. So oldMap is also NULL, obviously.
+    // }
 
-}
+    // if (Trigger.isBefore && Trigger.isUpdate) {
+    //     system.debug('====BEFORE UPDATE====');
+    //     system.debug('trigger.newMap -> ' + trgNewMap);//yes
+    //     system.debug('trigger.oldMap -> ' + trgOldMap);//yes
+    // }
+    // if (Trigger.isAfter && Trigger.isUPDATE) {
+    //     system.debug('====AFTER UPDATE====');
+    //     system.debug('trigger.newMap -> ' + trgNewMap);//yes
+    //     system.debug('trigger.oldMap -> ' + trgOldMap);//yes
+    // }
+
+
+
 
 //     System.debug('_______TRIGGER START________');
 //     // system.debug('Trigger.isBefore -> ' + Trigger.isBefore);
