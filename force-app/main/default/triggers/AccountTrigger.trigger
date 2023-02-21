@@ -4,6 +4,11 @@ trigger AccountTrigger on Account (before insert, before update, after insert, a
    if (trigger.isBefore) {
    AccountTriggerHandler.UpdateDescription(trigger.new, Trigger.old, trigger.newMap, Trigger.oldMap);
     }
+    if (Trigger.isAfter && Trigger.isUpdate) {
+        //cal vip contact handler method
+        AccountTriggerHandler.updateContactVip(trigger.new, Trigger.old, trigger.newMap, Trigger.oldMap);
+        
+    }
 
     // if (Trigger.isAfter && Trigger.isUpdate) {
     //     set<Id> setIds = trgNewMap.keySet();
