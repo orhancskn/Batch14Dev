@@ -10,6 +10,9 @@ public class AccountTriggerHandler {
         }
          //get contacts for all accounts where vip is changed.
         //how how how???? SOQL. SOQL. SOQL.
+        if (!accIds.isEmpty()) {
+            
+        
         List<Contact> listContacts = new List<Contact>();
         listContacts = [select id, vip__c, accountid from contact where accountid in :accIds];
         for (Contact eachCon : listContacts) {
@@ -21,6 +24,7 @@ public class AccountTriggerHandler {
         }
         if (!listContacts.isEmpty()) {
             update listContacts;
+        }
         }
     }
   

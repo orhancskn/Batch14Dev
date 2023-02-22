@@ -1,11 +1,14 @@
-trigger ContactTriger on Contact (before insert, after insert, before update, after update) {
+trigger ContactTriger on Contact (before insert, after insert, before update, after update, after delete, after undelete) {
    
    
     if (Trigger.isBefore && Trigger.isUpdate) {
         //call validation method of handler
-        ConctactTriggerHandler.contactUpdateValidation1(Trigger.new, trigger.old, trigger.newmap,trigger.oldmap);
+        //ConctactTriggerHandler.contactUpdateValidation1(Trigger.new, trigger.old, trigger.newmap,trigger.oldmap);
         ConctactTriggerHandler.contactUpdateValidation2(Trigger.new, trigger.old, trigger.newmap,trigger.oldmap);
    }
+    if (Trigger.isAfter) {
+        ConctactTriggerHandler.rollUpSummaryUpdate(Trigger.new, Trigger.old, Trigger.newmap,Trigger.oldmap);
+    }
    }
    
    
