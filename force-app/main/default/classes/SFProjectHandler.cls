@@ -38,5 +38,13 @@ public  class SFProjectHandler {
 
 
     }
+    @future 
+    public static void updateProjectDescription(set<id> spIds) {
+        List<Salesforce_Project__c> listSP = [select id, description__C FROM Salesforce_Project__c WHERE id IN : spIds ];
+        for (Salesforce_Project__c  eachSP  : listSP) {
+            eachSP.Description__c = 'updated from future';
+        }
+        update listSP;
+    }
 
 }

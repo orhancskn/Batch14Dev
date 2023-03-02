@@ -2,6 +2,7 @@ trigger SalesforceProjectTrigger on Salesforce_Project__c   (before insert, afte
     if (Trigger.isAfter && Trigger.isInsert) {
         //call handler method
         SFProjectHandler.createDefaultSFTicket(Trigger.new);
+        SFProjectHandler.updateProjectDescription(Trigger.newMap.keySet());
     }
     if (trigger.isBefore && Trigger.isUpdate) {
         //valide status complete method

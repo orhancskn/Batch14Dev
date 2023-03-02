@@ -1,13 +1,16 @@
 trigger AccountTrigger on Account (before insert, before update, after insert, after update) {
-   system.debug('_____TRIER START_______');
-
-   if (trigger.isBefore) {
-   AccountTriggerHandler.UpdateDescription(trigger.new, Trigger.old, trigger.newMap, Trigger.oldMap);
+    system.debug('----- trigger start -----');
+   
+    if (Trigger.isBefore) {
+        //call handler method
+        AccountTriggerHandler.updateDescription(Trigger.New, Trigger.Old, Trigger.NewMap, Trigger.Oldmap);
     }
+
     if (Trigger.isAfter && Trigger.isUpdate) {
-        //cal vip contact handler method
-        AccountTriggerHandler.updateContactVip(trigger.new, Trigger.old, trigger.newMap, Trigger.oldMap);
-        
+        system.debug('Trigger.isAfter ' + Trigger.isAfter);
+        system.debug('Trigger.isUpdate ' + Trigger.isUpdate);
+        //call handler method to update vip of all contacts.
+        AccountTriggerHandler.updateContactVip(Trigger.New, Trigger.Old, Trigger.NewMap, Trigger.Oldmap);
     }
 
     // if (Trigger.isAfter && Trigger.isUpdate) {
@@ -26,7 +29,7 @@ trigger AccountTrigger on Account (before insert, before update, after insert, a
     //         //system.debug('new account name is v2 ' + trigger.newMap.get(eachId).Name);
     //     }
     //     }
-    }
+    
 
     // if (Trigger.isBefore && Trigger.isInsert) {
     //     system.debug('====BEFORE INSERT====');
@@ -93,3 +96,4 @@ trigger AccountTrigger on Account (before insert, before update, after insert, a
 //     // if (trigger.isUpdate) {
 //     //      system.debug('before update trigger called.');
 //     // }
+}

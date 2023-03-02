@@ -1,4 +1,4 @@
-trigger CaseTrigger on Case (before insert, before update) {
+trigger CaseTrigger on Case (before insert, before update, after ) {
   
     if(Trigger.isBefore){
         system.debug('before insert case trigger called');
