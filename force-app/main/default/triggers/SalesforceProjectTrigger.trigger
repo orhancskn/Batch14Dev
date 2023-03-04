@@ -6,7 +6,11 @@ trigger SalesforceProjectTrigger on Salesforce_Project__c   (before insert, afte
     }
     if (trigger.isBefore && Trigger.isUpdate) {
         //valide status complete method
-        SFProjectHandler.validateStatusCompletion(Trigger.new, Trigger.old, Trigger.newMap, Trigger.oldMap);
+      //  SFProjectHandler.validateStatusCompletion(Trigger.new, Trigger.old, Trigger.newMap, Trigger.oldMap);
+      
+    }
+    if (Trigger.isAfter && Trigger.isUpdate) {
+        SFProjectHandler.projectStatusChange(Trigger.new, Trigger.old, Trigger.newMap, Trigger.oldMap);
     }
 
 }
