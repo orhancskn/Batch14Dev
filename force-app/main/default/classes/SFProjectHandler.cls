@@ -1,15 +1,23 @@
 public  class SFProjectHandler {
     public static void createDefaultSFTicket(List<Salesforce_Project__c> spTriggerNew) {
-        List<Salesforce_Ticket__c> newST = new List<Salesforce_Ticket__c>();
-        for (Salesforce_Project__c eachSFP : spTriggerNew) {
-            Salesforce_Ticket__c    st = new Salesforce_Ticket__c();
-            st.Subject__c = 'Default Ticket';
-            st.Salesforce_Project__c = eachSFP.Id;
-            newST.add(st);
+        try {
+            List<Salesforce_Ticket__c> newST = new List<Salesforce_Ticket__c>();
+            for (Salesforce_Project__c eachSFP : spTriggerNew) {
+                Salesforce_Ticket__c    st = new Salesforce_Ticket__c();
+                st.Subject__c = 'Default Ticket';
+                st.Salesforce_Project__c = eachSFP.Id;
+                newST.add(st);
+            }
+            if (!newST.isEmpty()) {
+                insert newST;
+            } 
+        } catch (Exception ex) {
+            //we will not catch the ERRORS here. 
+            for (Salesforce_Project__c eachSFP : spTriggerNew) {
+                eachSFP.addError('Error in Creatin Default ticket. Please Contact yor Administator');
+            }
         }
-        if (!newST.isEmpty()) {
-            insert newST;
-        }
+        
     }
     public static void validateStatusCompletion(List<Salesforce_Project__c> spTriggerNew, List<Salesforce_Project__c>spTriggerold, Map<Id,Salesforce_Project__c> spTriggerNewMap,Map<Id,Salesforce_Project__c> spTriggerOldMap ) {
         set<id> spIds = new set<id>();
