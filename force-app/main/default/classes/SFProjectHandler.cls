@@ -13,8 +13,9 @@ public  class SFProjectHandler {
             } 
         } catch (Exception ex) {
             //we will not catch the ERRORS here. 
+           // String errormessage = system.label.SFProjectTicket;
             for (Salesforce_Project__c eachSFP : spTriggerNew) {
-                eachSFP.addError('Error in Creatin Default ticket. Please Contact yor Administator');
+                eachSFP.addError(system.label.SFProjectTicket);
             }
         }
         
