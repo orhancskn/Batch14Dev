@@ -1,11 +1,26 @@
 public  class SFProjectHandler {
     public static void createDefaultSFTicket(List<Salesforce_Project__c> spTriggerNew) {
         try {
+            // get org default value using below metho 
+            DefaultTicketInfo__c dtInfo;
+            // get admin profile id via soql 
+            Profile adminProfile =[select id, name From Profile where name = 'System Administrator'];
+
+            if (UserInfo.getProfileId() == adminProfile.Id) {
+                dtInfo = DefaultTicketInfo__c.getInstance(adminProfile.Id);
+            } else {
+                dtInfo = DefaultTicketInfo__c.getOrgDefaults();
+            }
+           // = DefaultTicketInfo__c.getOrgDefaults();
+
+
             List<Salesforce_Ticket__c> newST = new List<Salesforce_Ticket__c>();
             for (Salesforce_Project__c eachSFP : spTriggerNew) {
                 Salesforce_Ticket__c    st = new Salesforce_Ticket__c();
-                st.Subject__c = 'Default Ticket';
+                st.Subject__c = dtInfo.Subject__c;
                 st.Salesforce_Project__c = eachSFP.Id;
+                st.Priority__c = 'High';
+                st.Description__c = dtInfo.Description__c;
                 newST.add(st);
             }
             if (!newST.isEmpty()) {
